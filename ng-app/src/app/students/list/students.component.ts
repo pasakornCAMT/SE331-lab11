@@ -17,7 +17,12 @@ export class StudentsComponent {
 
   ngOnInit() {
     this.studentDataService.getStudentsData()
-      .subscribe(students => this.students = students);
+      .subscribe(students => this.students = students,
+        (error) => {
+        if(error.status === 401){
+          this.router.navigate(['login'],{queryParams:{source:'student'}});
+        }
+        });
   }
 
 
