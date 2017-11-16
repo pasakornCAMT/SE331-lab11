@@ -1,6 +1,8 @@
 package camt.cbsd.entity.security;
 
 import camt.cbsd.entity.Student;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -61,12 +63,15 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
 
-    //@OneToOne
-    //Student student;
-
     @JoinTable(
             name = "USER_AUTHORITY",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
+
+    @JsonManagedReference
     private List<Authority> authorities;
+
+    @OneToOne
+    @JsonBackReference
+    Student student;
 }
