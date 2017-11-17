@@ -50,6 +50,6 @@ public class StudentDaoDBImpl implements StudentDao {
 
     @Override
     public List<Student> getStudents(String searchText) {
-        return studentRepository.findByName(searchText);
+        return studentRepository.findBySurnameIgnoreCaseContainingOrSurnameIgnoreCaseContaining(searchText,searchText);
     }
 }
