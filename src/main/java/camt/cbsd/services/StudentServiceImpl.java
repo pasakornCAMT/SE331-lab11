@@ -77,4 +77,12 @@ public class StudentServiceImpl implements StudentService {
         Hibernate.initialize(student.getAuthorities());
         return student;
     }
+
+    @Override
+    @Transactional
+    public List<Student> queryStudent(String query) {
+        if(query == null || query.equals(""))
+            return studentDao.getStudents();
+        return studentDao.getStudents(query);
+    }
 }

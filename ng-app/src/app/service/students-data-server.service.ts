@@ -3,6 +3,7 @@ import {Student} from '../students/student';
 import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import {Observable} from "rxjs/Rx";
 import {AuthenticationService} from './authentication.service';
+import {URLSearchParams} from '@angular/http';
 
 
 @Injectable()
@@ -92,5 +93,16 @@ export class StudentsDataServerService {
 
 
 
+  }
+  findStudent(search:string){
+    let student: Student;
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('search',search);
+    let headers = new Headers({
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer '+this.authenticationService.getToken()
+    });
+    return this.http.get('http://localhost:8080/students/',{headers:headers,search:params})
+      .map(res => res.json());
   }
 }

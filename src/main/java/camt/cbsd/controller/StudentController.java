@@ -119,4 +119,14 @@ public class StudentController {
         }
 
     }
+
+    @GetMapping("/students")
+    public ResponseEntity<?> queryStudent(@RequestParam("search") String query){
+        List<Student> students = studentService.queryStudent(query);
+        if(students != null)
+            return ResponseEntity.ok(students);
+        else
+            //http code 204
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

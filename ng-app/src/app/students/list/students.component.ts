@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 })
 export class StudentsComponent {
   students: Student[];
+  search: string;
 
   constructor(private studentDataService: StudentsDataService, private router: Router ) {
   }
@@ -50,5 +51,18 @@ export class StudentsComponent {
 
   showDetail(student: Student){
     this.router.navigate(['/detail',student.id]);
+  }
+
+
+  onSearch(){
+    this.studentDataService.findStudent(this.search)
+      .subscribe(
+        students => this.students = students,
+        (error) => {
+          if (error.status === 401){
+            this.router.navigate(['login'],{queryParams:{source:'student'}});
+          }
+        }
+      )
   }
 }

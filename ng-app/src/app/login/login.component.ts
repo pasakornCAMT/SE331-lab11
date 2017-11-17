@@ -29,11 +29,11 @@ export class LoginComponent implements OnInit {
           source = params['source'];
         else
           source = null;
+        if(source){
+          this.error = 'Please login before use'+source+'page';
+        }
       }
-    )
-    if(source){
-      this.error = 'Please login before use'+source+'page';
-    }
+    );
   }
 
   login(){
